@@ -58,4 +58,14 @@ public class EventService {
         //vai salvar e atualizar em cima do event existente
         return eventRepository.save(event);
     }
+
+    public void deleteEvent(Long id) {
+
+        //eventRepository.findById(id) = procurar o evento no PostgreSQL
+        Event event = eventRepository.findById(id)
+                //caso não encontre lança exception
+                .orElseThrow(() -> new EventNotFoundException(id));
+        //se encontrar vai deletar
+        eventRepository.delete(event);
+    }
 }
