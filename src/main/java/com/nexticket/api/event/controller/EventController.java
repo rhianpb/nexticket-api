@@ -4,6 +4,7 @@ import com.nexticket.api.event.dto.CreateEventRequest;
 import com.nexticket.api.event.entity.Event;
 import com.nexticket.api.event.service.EventService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,5 +49,15 @@ public class EventController {
             @Valid @RequestBody CreateEventRequest request) {
 
         return eventService.updateEvent(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    //ResponseEntity permite controlar a resposta HTTP
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
+
+        eventService.deleteEvent(id);
+
+        //ResponseEntity.noContent().build(); = 204 No content = requisição realizada com sucesso mas sem nada pra devolver
+        return ResponseEntity.noContent().build();
     }
 }
