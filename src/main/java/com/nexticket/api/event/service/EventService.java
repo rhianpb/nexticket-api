@@ -2,6 +2,7 @@ package com.nexticket.api.event.service;
 
 import com.nexticket.api.event.dto.CreateEventRequest;
 import com.nexticket.api.event.entity.Event;
+import com.nexticket.api.event.enums.EventStatus;
 import com.nexticket.api.event.exception.EventNotFoundException;
 import com.nexticket.api.event.repository.EventRepository;
 import org.springframework.data.domain.Sort;
@@ -33,6 +34,9 @@ public class EventService {
 
         event.setName(request.getName());
         event.setLocation(request.getLocation());
+        event.setEventDate(request.getEventDate());
+        event.setCapacity(request.getCapacity());
+        event.setStatus(EventStatus.DRAFT);
 
         return eventRepository.save(event);
     }
@@ -54,6 +58,8 @@ public class EventService {
         //substituir os valores antigos pelos novos
         event.setName(request.getName());
         event.setLocation(request.getLocation());
+        event.setEventDate(request.getEventDate());
+        event.setCapacity(request.getCapacity());
 
         //vai salvar e atualizar em cima do event existente
         return eventRepository.save(event);
